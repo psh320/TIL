@@ -1,17 +1,37 @@
-let userInput: unknown;
-let userName: string;
+class Department {
+    private employees: string[] = [];
 
-userInput = 5;
-userInput= 'Max';
+    constructor(private readonly id:string ,public name:string) {
+    }
+    describe(this:Department) {
+        console.log("Department: " + this.name);
+    }
+    addEmployee(employee: string) {
+        this.employees.push(employee);
+    }
 
-if(typeof userInput === 'string') {
-    userName = userInput;
+    printEmployeeInformation() {
+        console.log(this.employees)
+    }
 }
 
-//Any 랑 다를게 없지만, 언노운 변수를 다른 확정 타입 변수에 넣을순 없다 저렇게 동적으로 체크해줘야 가능한것.
+const accounting = new Department("d1","Accounting")
 
-function generateError(message:string, code: number): never {
-    throw {message: message, errorCode: code}
+//Add employee example
+accounting.addEmployee("Max");
+accounting.addEmployee("Mana");
+
+//Giving Private to property or method will allow access that data within class
+accounting.employees[2] = "Anna";
+
+accounting.describe()
+
+class ITDepartment extends Department {
+    admins: string[]
+    constructor(id:string, admins: string[]) {
+        super(id, 'IT');
+        this.admins = admins
+    }
 }
-//throw처럼 에러가 중간에 나서 스크립트가 크래쉬 된다면 함수의 리턴 타입은 네버다.
-generateError('An error occurred!', 500);
+
+const It = new ITDepartment('d2', ['MAX']);
