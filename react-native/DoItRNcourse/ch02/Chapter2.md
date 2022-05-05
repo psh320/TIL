@@ -17,7 +17,7 @@ export default function App() {
     )
 }
 ```
-However, if Statement is execution statement so itself dose not have any value. execution statement is not usable in JSX so we need to some of the followings
+However, if Statement is execution statement so itself does not have any value. execution statement is not usable in JSX so we need to some of the followings
 
 1. Put if Statement outside JSX
 
