@@ -212,3 +212,56 @@ export default function App() {
 ```
 
 In this way we create random person and use in our app.
+
+---
+
+# Handle Event in React Native
+
+### Button
+
+```typescript
+<View style={styles.container}>
+  <Button title="Home" onPress={onPress} />
+  <TouchableOpacity onPress={onPress}>
+    <Text>TouchableOpacity</Text>
+  </TouchableOpacity>
+  <TouchableHighlight onPress={onPress}>
+    <Text>Touchable Highlight</Text>
+  </TouchableHighlight>
+  <Text onPress={onPress}>Press Me</Text>
+  <StatusBar style="auto" />
+</View>
+```
+
+textInput
+
+textInput core component has following characteristics
+
+1. We can set default vlaue in defaultValue property.
+2. The written Text can be obtained by value property.
+3. Whenever Text is entered, onChangeText event listener works.
+4. Placeholder property can be used to guide which type of text needs to be input.
+5. If we set false in editable property, we can disable input.
+6. keyboardType property allows 'default', 'numeric', 'email-address' values and so on.
+7. There are focus method that focuses on textInput and blur method to loose focus.
+8. onFocus event will be called when we are able to write on TextInput (When we have focus), onBlur event will be called when we are not able to write (When we loose focus).
+9. When Text input is done, onEndEditting Event will be called.
+10. Cannot have children Component.
+
+onChangeText function signature
+
+```
+onChangeText(text: string) => void
+```
+
+example of Text Input
+
+```typescript
+<TextInput
+  placeholder="Enter your name"
+  onChangeText={(text: string) => console.log(text)}
+  onFocus={() => console.log("OnFocus")}
+  onBlur={() => console.log("OnBlur")}
+  onEndEditing={() => console.log("onEndEditing")}
+/>
+```
