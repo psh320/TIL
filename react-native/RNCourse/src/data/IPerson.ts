@@ -9,7 +9,7 @@ export type IPerson = {
     image: string
     comments: string
     counts: {
-        commnet: number
+        comment: number
         retweet: number
         heart: number
     }

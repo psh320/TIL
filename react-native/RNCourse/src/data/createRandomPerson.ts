@@ -2,7 +2,7 @@ import type {IPerson} from './Iperson'
 import * as F from './faker'
 import * as U from './util'
 
-export const createRandomPerson = (): Iperson => {
+export const createRandomPerson = (): IPerson => {
     const name = F.randomName()
     return {
         id: F.randomId(),
