@@ -205,3 +205,21 @@ const styles = StyleSheet.create({
 ```
 
 ### Installing and Using Fonts
+
+Search font on Google and download the Font Family files. Then paste it to assets/fonts folder.
+
+Unfortunately, We cannot simply just apply our font files to our app. To apply our font assets, We need to run command '**npx react-native link**' and this command requires react-native.config.js file where package.json exists.
+
+Enter these following texts in _react-native.config.js_
+
+```javascript
+module.exports = {
+  projects: {
+    ios: {},
+    android: {},
+  },
+  assets: ["./src/assets/fonts"],
+};
+```
+
+Then run npx react-native link
