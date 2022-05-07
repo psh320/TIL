@@ -138,3 +138,9 @@ property : Platform.select({
 paddingLeft: Platform.select({ios: 0, android: 20})
 
 ```
+
+---
+
+## Using Assets and Icon
+
+In mobile app development, Assets and Resources are included in an app as images, fonts, icons and files. They are required for maintaining the design of the app during offline.

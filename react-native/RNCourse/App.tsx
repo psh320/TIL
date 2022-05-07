@@ -8,16 +8,12 @@ const {width, height} = Dimensions.get('window')
 
 export default function App() {
   return (
-    <View style={[styles.view]}>
-      <Text style={[styles.text]}>OS: {Platform.OS}</Text>
-      <Text style={[styles.text]}>Width: {width}</Text>
-      <Text style={[styles.text]}>Height: {height}</Text>
+    <View style={[styles.flex]}>
     </View>
   );
 }
 
 // prettier-ignore
 const styles = StyleSheet.create({
-  view: {backgroundColor: Colors.blue500, height: height},
-  text: {fontSize:20, color:Colors.blue200, width: width},
+  flex:{flex: 1}
 });
