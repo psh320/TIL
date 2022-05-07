@@ -144,3 +144,64 @@ paddingLeft: Platform.select({ios: 0, android: 20})
 ## Using Assets and Icon
 
 In mobile app development, Assets and Resources are included in an app as images, fonts, icons and files. They are required for maintaining the design of the app during offline.
+
+We use assets folder to save images and icons. Then how do we use those assets stored in our app
+
+### Using ImageBackground core component
+
+- When we use component that contains 'Image' (ImageBackground, Image ...), we must use **require** in **source** attribute.
+- We also must set **height and width** for images like {height: '100%', width: '100%'}, in this case we use {flex:1} as it is more simple.
+
+```typescript
+import { ImageBackground } from "react-native";
+
+<ImageBackground style={{ flex: 1 }} source={require("./src/assets/bg.jpg")} />;
+```
+
+ImageBackground can have child component although it is not 'View'.
+
+### Using Image core component
+
+- Image component renders an image but Image cannot have child component.
+- When we want to load an image from other servers instead of local assets, we need to use {uri: image_file_web_address} in source attribute.
+
+```typescript
+import { Image } from "react-native";
+import * as D from "./src/data";
+
+const avatarUrl = D.randomAvatarUrl()
+// ex) 'https://ui-avatars.com/api/?name=Sadie+Stracke'
+
+<Image source={{uri:avatarUrl}}  style={[styles.image]} />;
+```
+
+Following example uses ImageBackground as child component of View and Image component as child of ImageBackground.
+
+```typescript
+import * as D from "./src/data";
+
+const avatarUrl = D.randomAvatarUrl();
+const avatarSize = 50;
+
+export default function App() {
+  return (
+    <View style={[styles.flex]}>
+      <ImageBackground
+        style={[styles.flex, styles.imageBackground]}
+        source={require("./src/assets/images/bg.jpg")}
+      >
+        <Image source={{ uri: avatarUrl }} style={[styles.image]} />
+      </ImageBackground>
+    </View>
+  );
+}
+
+// prettier-ignore
+const styles = StyleSheet.create({
+  flex:{flex: 1},
+  imageBackground:{padding: 10},
+  image:{width: avatarSize, height: avatarSize, borderRadius: avatarSize/2}
+});
+```
+
+### Installing and Using Fonts
