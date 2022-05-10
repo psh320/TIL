@@ -65,6 +65,11 @@ To build an IOS app in React-Native, we need to build Native Module which is Obj
 ```
 sudo gem install cocoapods
 pod --version
+
+//for m1 macbook, go to ios folder and run this command
+% sudo arch -arch x86_64 gem install cocoapods
+% sudo arch -arch x86_64 gem install ffi
+% arch -arch x86_64 pod install
 ```
 
 ## Install Watchman
@@ -89,3 +94,5 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/tools
 export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 ```
+
+Make sure You have installed Same version for SDK and AVD and have installed SDK tools appropriately.
