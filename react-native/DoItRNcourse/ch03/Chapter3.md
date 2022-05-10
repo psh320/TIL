@@ -279,3 +279,52 @@ In react-native, the properties we can set in fontWeight are as follows.
 **textAlign Style Property**
 
 textAlign decides how the text are going to be aligned using 'right', 'center', 'left'.
+
+## Using React-Native-vector-icons Packages
+
+We have installed react-native-vector-icons locally, but we did not link it to IOS and Android. Run this command to link it.
+
+```
+npx react-native link react-native-vector-icons
+```
+
+### Using Icons
+
+react-native-vector-icons provide 14 Icon Sets and we can use these Icon sets from Icon component.
+
+```ts
+import Icon from "react-native-vector-icons/icon_set_name";
+```
+
+Basic Usage of Icon component
+
+```ts
+<Icon
+  name="icon_name"
+  size={icon_size}
+  color="icon_color"
+  onPress={Callback_Function}
+/>
+```
+
+Example of using Home icon from MaterialCommunityIcons set
+
+```ts
+import {Colors} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+const onIconPressed = () => console.log('icon pressed')
+
+(...)
+
+<Icon name="home" size={50} color={Colors.lightBlue500} onPress={onIconPressed} />
+
+```
+
+### Apply ReactVectorIcons to IOS
+
+We have linked packages using _npx react-native link react-native-vector-icons_ but it actaully changes podlife in ios directory. It is not installed on actual dev computer. We fix this by running
+
+npx pod-install in ios directory
+
+**IN M1 mac** we need run this command instead
+arch -arch x86_64 pod install

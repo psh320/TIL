@@ -9,8 +9,11 @@ import {
   View,
 } from 'react-native';
 import {Colors} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import * as D from './src/data';
 
+const onIconPressed = () => console.log('icon pressed');
 const avatarUrl = D.randomAvatarUrl();
 const avatarSize = 50;
 const text = 'Almost before we knew it, we had left the ground.';
@@ -27,6 +30,12 @@ const App = () => {
           <Text style={[styles.text, styles.semiBold]}>{text} [semi bold]</Text>
           <Text style={[styles.text, styles.bold]}>{text} [regular]</Text>
         </View>
+        <Icon
+          name="home"
+          size={50}
+          color={Colors.lightBlue500}
+          onPress={onIconPressed}
+        />
       </ImageBackground>
     </SafeAreaView>
   );
