@@ -160,6 +160,8 @@ import { ImageBackground } from "react-native";
 
 ImageBackground can have child component although it is not 'View'.
 
+---
+
 ### Using Image core component
 
 - Image component renders an image but Image cannot have child component.
@@ -204,6 +206,8 @@ const styles = StyleSheet.create({
 });
 ```
 
+---
+
 ### Installing and Using Fonts
 
 Search font on Google and download the Font Family files. Then paste it to assets/fonts folder.
@@ -222,4 +226,56 @@ module.exports = {
 };
 ```
 
-Then run npx react-native link
+Then run npx react-native link to send the assets to android and IOS.
+then it seems it is working fine but extra steps are needed to IOS which I will cover later on.
+
+---
+
+### Styling Fonts in React-Native
+
+**fontFamily Style Property**
+
+We apply the font by using fontFamily in styles
+
+_fontFamily Style Property example_
+
+```js
+fontFamily: "DancingScript-Regular";
+```
+
+we can give options like this
+
+```typescript
+const styles = Styleshee.create({
+  regular: { fontFamily: "DancingScript-Regular" },
+  medium: { fontFamily: "DancingScript-Medium" },
+  semiBold: { fontFamily: "DancingScript-SemiBold" },
+  bold: { fontFamily: "DancingScript-Bold" },
+});
+```
+
+Unlick CSS, we cannot apply all fonts to child components by giving style to parents.
+
+_Example of Giving font styles to texts_
+
+```typescript
+<View>
+  <Text style={[styles.regular]}> some text here1</Text>
+  <Text style={[styles.regular]}> some text here2</Text>
+  <Text style={[styles.regular]}> some text here3</Text>
+</View>
+```
+
+**fontWeight Style Property**
+
+fontWeight can change the thickness of text.
+
+In react-native, the properties we can set in fontWeight are as follows.
+
+```js
+"normal", "bold", "100", "200", "300", "400", "500", "600", "700", "800", "900";
+```
+
+**textAlign Style Property**
+
+textAlign decides how the text are going to be aligned using 'right', 'center', 'left'.
