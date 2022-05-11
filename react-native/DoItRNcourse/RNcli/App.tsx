@@ -1,58 +1,36 @@
 import React from 'react';
-import {
-  Image,
-  ImageBackground,
-  Platform,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Alert, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
 import {Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import BottomBar from './src/screens/BottomBar';
+import Content from './src/screens/Content';
+import TopBar from './src/screens/TopBar';
 
-import * as D from './src/data';
-
-const onIconPressed = () => console.log('icon pressed');
-const avatarUrl = D.randomAvatarUrl();
-const avatarSize = 50;
-const text = 'Almost before we knew it, we had left the ground.';
 const App = () => {
+  const iconPressed = () => Alert.alert('Icon Pressed.');
   return (
-    <SafeAreaView style={[styles.flex]}>
-      <ImageBackground
-        style={[styles.flex, styles.imageBackground]}
-        source={require('./src/assets/images/bg.jpg')}>
-        <Image source={{uri: avatarUrl}} style={[styles.image]} />
-        <View>
-          <Text style={[styles.text, styles.regular]}>{text} [regular]</Text>
-          <Text style={[styles.text, styles.medium]}>{text} [medium]</Text>
-          <Text style={[styles.text, styles.semiBold]}>{text} [semi bold]</Text>
-          <Text style={[styles.text, styles.bold]}>{text} [regular]</Text>
-        </View>
-        <Icon
-          name="home"
-          size={50}
-          color={Colors.lightBlue500}
-          onPress={onIconPressed}
-        />
-      </ImageBackground>
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={[styles.flex]}>
+        <TopBar />
+        <Content />
+        <BottomBar />
+      </SafeAreaView>
+      <View style={[styles.absoluteView]}>
+        <Icon name="feather" size={50} color="white" onPress={iconPressed} />
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  flex: {flex: 1},
-  imageBackground: {padding: 10},
-  image: {width: avatarSize, height: avatarSize, borderRadius: avatarSize / 2},
-  padding10: {padding: 10},
-  text: {textAlign: 'center', fontSize: 25, color: 'white', marginBottom: 10},
-  regular: {fontFamily: 'DancingScript-Regular', fontWeight: '400'},
-  medium: {fontFamily: 'DancingScript-Medium', fontWeight: '500'},
-  semiBold: {fontFamily: 'DancingScript-SemiBold', fontWeight: '600'},
-  bold: {
-    fontFamily: 'DancingScript-Bold',
-    fontWeight: Platform.select({ios: '700', android: '600'}),
+  flex: {flex: 1, backgroundColor: Colors.lightBlue100},
+  absoluteView: {
+    backgroundColor: Colors.purple900,
+    position: 'absolute',
+    right: 30,
+    bottom: Platform.select({ios: 100, android: 80}),
+    padding: 10,
+    borderRadius: 35,
   },
 });
 

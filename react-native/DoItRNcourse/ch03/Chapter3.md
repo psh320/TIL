@@ -5,7 +5,7 @@
 Styling App is different from web. First of all, there is no CSS in React-Native.
 For inline-styling, we can give object property instead of html markup.
 
-```typescript
+```js
 <View style={{ flex: 1, backgroundColor: true }}> </View>
 
 //we can also give multiple style objects using array
@@ -18,13 +18,13 @@ View components (View, ScrollView, SafeAreaView, KeyboardAvoidingView... etc) ha
 
 ## StyleSheet API
 
-```typescript
+```js
 import { StyleSheet } from "react-native";
 ```
 
 StyleSheet provide create method and we use it to create cached style object.
 
-```typescript
+```js
 const styles = StyleSheet.create({
     key_name1: {Style: Object1},
     key_name2: {Style: Object2},
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 
 example
 
-```typescript
+```js
 export default function App() {
   return (
     <View style={[styles.view, { backgroundColor: "blue" }]}>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 
 Android recommend using this color guideline instead of '#FFFFFF' or 'white' to Color.white500.
 
-```typescript
+```js
 import { Colors } from "react-native-paper";
 ```
 
@@ -75,7 +75,7 @@ npm i react-native-vector-icons react-native-paper
 
 example
 
-```typescript
+```js
 const styles = StyleSheet.create({
   view: {
     flex: 1,
@@ -104,7 +104,7 @@ View Components may have muitple react-native components as child and they play 
 
 _Checking running OS_
 
-```typescript
+```js
 import { Platform } from "react-native";
 
 console.log(Platform.OS);
@@ -112,7 +112,7 @@ console.log(Platform.OS);
 
 - Also we need to know the size of the phone when running the App. We use Dimensions API to check this.
 
-```typescript
+```js
 import { Dimensions } from "react-native";
 
 const { width, height } = Dimensions.get("window");
@@ -129,7 +129,7 @@ const { width, height } = Dimensions.get("window");
 
 Platform also provide method select
 
-```typescript
+```js
 property : Platform.select({
     ios: ,//value when Platform.OS is IOS
     android: //value when Platform.OS is Android
@@ -152,7 +152,7 @@ We use assets folder to save images and icons. Then how do we use those assets s
 - When we use component that contains 'Image' (ImageBackground, Image ...), we must use **require** in **source** attribute.
 - We also must set **height and width** for images like {height: '100%', width: '100%'}, in this case we use {flex:1} as it is more simple.
 
-```typescript
+```js
 import { ImageBackground } from "react-native";
 
 <ImageBackground style={{ flex: 1 }} source={require("./src/assets/bg.jpg")} />;
@@ -167,7 +167,7 @@ ImageBackground can have child component although it is not 'View'.
 - Image component renders an image but Image cannot have child component.
 - When we want to load an image from other servers instead of local assets, we need to use {uri: image_file_web_address} in source attribute.
 
-```typescript
+```js
 import { Image } from "react-native";
 import * as D from "./src/data";
 
@@ -179,7 +179,7 @@ const avatarUrl = D.randomAvatarUrl()
 
 Following example uses ImageBackground as child component of View and Image component as child of ImageBackground.
 
-```typescript
+```js
 import * as D from "./src/data";
 
 const avatarUrl = D.randomAvatarUrl();
@@ -216,7 +216,7 @@ Unfortunately, We cannot simply just apply our font files to our app. To apply o
 
 Enter these following texts in _react-native.config.js_
 
-```javascript
+```js
 module.exports = {
   projects: {
     ios: {},
@@ -245,7 +245,7 @@ fontFamily: "DancingScript-Regular";
 
 we can give options like this
 
-```typescript
+```js
 const styles = Styleshee.create({
   regular: { fontFamily: "DancingScript-Regular" },
   medium: { fontFamily: "DancingScript-Medium" },
@@ -258,7 +258,7 @@ Unlick CSS, we cannot apply all fonts to child components by giving style to par
 
 _Example of Giving font styles to texts_
 
-```typescript
+```js
 <View>
   <Text style={[styles.regular]}> some text here1</Text>
   <Text style={[styles.regular]}> some text here2</Text>
@@ -292,13 +292,13 @@ npx react-native link react-native-vector-icons
 
 react-native-vector-icons provide 14 Icon Sets and we can use these Icon sets from Icon component.
 
-```ts
+```js
 import Icon from "react-native-vector-icons/icon_set_name";
 ```
 
 Basic Usage of Icon component
 
-```ts
+```js
 <Icon
   name="icon_name"
   size={icon_size}
@@ -309,7 +309,7 @@ Basic Usage of Icon component
 
 Example of using Home icon from MaterialCommunityIcons set
 
-```ts
+```js
 import {Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 const onIconPressed = () => console.log('icon pressed')
@@ -328,3 +328,49 @@ npx pod-install in ios directory
 
 **IN M1 mac** we need run this command instead
 arch -arch x86_64 pod install
+
+### ScrollView In React-Native
+
+Unlike Web React, when a content is overflowed, we cannot scroll by dragging the screen. We need to use ScrollView component that allows scroll when content is overflowed.
+
+Beside style property, ScrollView has different property which is contentContainerStyle. contentContainerStyle is applied to contents that are scrolled. flex: 1 should not be used in contentContainerStyle.
+
+```typescript
+<ScrollView contentContainerStyle={[styles.view]}>{children}</ScrollView>
+```
+
+### React.Fragment Component and <></>
+
+Suppose we want to make Floating Action Button at the bottom right corner button is made up of View component with Icon
+
+```js
+<SafeAreaView style={[styles.view]}>
+  <View>//Contents</View>
+  //Floating Icon
+  <View style={[styles.absoluteView]}>
+    <Icon name="feather" size={50} color="white" />
+  </View>
+</SafeAreaView>
+```
+
+the button needs to float and overlap the whole page therefore, it should not be inside the parent View component. Then because of XML property, we cannot return have two components without wrapping them with one huge component, here we use **Fragment**.
+
+```js
+import React, {Fragment} from 'react';
+
+//impossible to return multiple components without parent.
+<SafeAreaView />
+<View />
+
+//So we use Fragment
+<Fragment>
+  <SafeAreaView />
+  <View />
+</Fragment>
+
+//Fragment can be used in short form as <></>
+<>
+  <SafeAreaView />
+  <View />
+</>
+```
