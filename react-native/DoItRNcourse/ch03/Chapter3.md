@@ -412,3 +412,28 @@ import React, {Fragment} from 'react';
   <View />
 </>
 ```
+
+### Using Moment Package in React-Native
+
+Moment provide more features that Date does not have. To use Moment Package, we need to import it after install
+
+```
+npm i moment moment-with-locales-es6
+```
+
+```js
+import moment from "moment";
+```
+
+We use moment by formatting existing Date instance to moment instance and use moment method.
+And one of the main reason of using moment is to show the time difference in a easy format.
+
+```js
+const modifiedDate = new Date();
+console.log("modifiedDate", moment(modifiedDate).format("llll"));
+//modifiedDate Mon, Nov 23, 2020 7:53 PM
+console.log(moment(modifiedDate).startOf("day").fromNow());
+//20 hours ago
+```
+
+_Use moment.locale('lang') to change language (need import from moment-with-locales-es6)_
