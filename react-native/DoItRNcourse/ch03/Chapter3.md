@@ -335,8 +335,46 @@ Unlike Web React, when a content is overflowed, we cannot scroll by dragging the
 
 Beside style property, ScrollView has different property which is contentContainerStyle. contentContainerStyle is applied to contents that are scrolled. flex: 1 should not be used in contentContainerStyle.
 
-```typescript
+```js
 <ScrollView contentContainerStyle={[styles.view]}>{children}</ScrollView>
+```
+
+The items we created are rendered by ScrollView Component. Now we will use FlatList Core Componenet which is more optimized for rendering in React-Native. FlatList is more faster if we are rendering same components repetitively.
+
+```js
+import { FlatList } from "react-native";
+
+//Usage of FlatList
+<FlatList data={people} />;
+```
+
+FlatList is a little bit complicated than ScrollView. We provide data property to set a data we want to render. (data needs to be an array holding list of data)
+
+FlatList also provide **renderItem** property so we use it to render children
+
+```js
+<FlatList data={people} renderItem={({ item }) => <Person person={item} />} />
+```
+
+We have not set the key for each component so we use **keyExtractor** property using callback function with parameter item and index.
+
+```js
+<FlatList
+  data={people}
+  renderItem={({ item }) => <Person person={item} />}
+  keyExtractor={(item, index) => item.id} //keyExtractor={(item,index) => index.toString()} if no ID is set in data.
+/>
+```
+
+Also we can use **ItemSeperatorComponent** property to set component returned by callback function. The components play a role as Item Seperator that seperates the rendered items.
+
+```js
+<FlatList
+  data={people}
+  renderItem={({ item }) => <Person person={item} />}
+  keyExtractor={(item, index) => item.id}
+  ItemSeperatorComponent={() => <View style={styles.itemSeperator} />}
+/>
 ```
 
 ### React.Fragment Component and <></>

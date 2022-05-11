@@ -1,37 +1,29 @@
 import React from 'react';
-import {Alert, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
+import {FlatList, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
+import Person from './src/copy/Person';
+import * as D from './src/data';
 import {Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import BottomBar from './src/screens/BottomBar';
-import Content from './src/screens/Content';
-import TopBar from './src/screens/TopBar';
+const people: D.IPerson[] = D.makeArray(10).map(D.createRandomPerson);
 
 const App = () => {
-  const iconPressed = () => Alert.alert('Icon Pressed.');
   return (
     <>
       <SafeAreaView style={[styles.flex]}>
-        <TopBar />
-        <Content />
-        <BottomBar />
+        <FlatList
+          data={people}
+          renderItem={({item}) => <Person person={item} />}
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={() => <View style={styles.itemSeperator} />}
+        />
       </SafeAreaView>
-      <View style={[styles.absoluteView]}>
-        <Icon name="feather" size={50} color="white" onPress={iconPressed} />
-      </View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  flex: {flex: 1, backgroundColor: Colors.lightBlue100},
-  absoluteView: {
-    backgroundColor: Colors.purple900,
-    position: 'absolute',
-    right: 30,
-    bottom: Platform.select({ios: 100, android: 80}),
-    padding: 10,
-    borderRadius: 35,
-  },
+  flex: {flex: 1},
+  itemSeperator: {borderWidth: 1, borderColor: Colors.grey500},
 });
 
 export default App;
