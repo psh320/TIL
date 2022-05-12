@@ -2,7 +2,7 @@
 
 When we encounter a situation where we need to render a JSX (react/react-native) pages by conditions, I used to write code is such a way php works.
 
-```typescript
+```js
 export default function App() {
     const isLoading = true;
     return (
@@ -22,7 +22,7 @@ However, if Statement is execution statement so itself does not have any value. 
 
 1. Put if Statement outside JSX
 
-```typescript
+```js
 export default function App() {
   const isLoading = true;
   if (isLoading) {
@@ -42,7 +42,7 @@ export default function App() {
 
 2. Change If Statement to short circuit evaluation
 
-```typescript
+```js
 export default function App() {
   const isLoading = true;
   return (
@@ -60,7 +60,7 @@ undefined is simply ignored by JSX so it is working fine.
 
 3. Store JSX is variable
 
-```typescript
+```js
 export default function App() {
   const isLoading = true;
   const children = isLoading ? (

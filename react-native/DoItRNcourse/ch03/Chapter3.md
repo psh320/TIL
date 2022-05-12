@@ -437,3 +437,25 @@ console.log(moment(modifiedDate).startOf("day").fromNow());
 ```
 
 _Use moment.locale('lang') to change language (need import from moment-with-locales-es6)_
+
+### Using Reusable Component in React-Native with Typescript
+
+Suppose we are developing Twitter and we have Icons like comment, retweet and heart. They look similar and use Same JSX structure.
+
+_example for comment JSX_
+
+```js
+<View>
+  <Icon
+    name="comment"
+    size={24}
+    color="blue"
+    onPress={() => Alert.alert("comment clicked")}
+  />
+  <Text>{person.counts.comment}</Text>
+</View>
+```
+
+It will be convinient if we can reuse this component for each Icons, retweet and heart.
+
+We conver this JSX into custom component from core components (View, Text).

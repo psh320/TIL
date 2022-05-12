@@ -20,11 +20,9 @@ const Person: FC<PersonProps> = ({person}) => {
         <Text style={[styles.email]}>{person.email}</Text>
       </View>
       <View style={[styles.dateView]}>
-        <Text>
-          {moment.(person.createdDate).startOf('day').fromNow()}
-        </Text>
+        <Text>{moment(person.createdDate).startOf('day').fromNow()}</Text>
       </View>
-      <Text style={[styles.text]}>{person.comment}</Text>
+      <Text style={[styles.text]}>{person.comments}</Text>
       <Image style={[styles.image]} source={{uri: person.image}} />
       <View style={[styles.countsView]}>
         <Text style={[styles.counts]}>{person.counts.comment}</Text>
