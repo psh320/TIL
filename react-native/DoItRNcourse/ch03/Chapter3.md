@@ -459,3 +459,11 @@ _example for comment JSX_
 It will be convinient if we can reuse this component for each Icons, retweet and heart.
 
 We conver this JSX into custom component from core components (View, Text).
+
+### ComponentProps, Types for Components
+
+```js
+import type { ComponentProps } from "react";
+```
+
+We use ComponenetProps to find the type of core components Provided by React.
