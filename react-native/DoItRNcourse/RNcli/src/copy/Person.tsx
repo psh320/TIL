@@ -78,16 +78,6 @@ const Person: FC<PersonProps> = ({person}) => {
           />
         </View>
       </View>
-      <Image source={{uri: person.avatar}} style={[styles.avatar]} />
-      <View></View>
-
-      <Text style={[styles.text]}>{person.comments}</Text>
-      <Image style={[styles.image]} source={{uri: person.image}} />
-      <View style={[styles.countsView]}>
-        <Text style={[styles.counts]}>{person.counts.comment}</Text>
-        <Text style={[styles.counts]}>{person.counts.retweet}</Text>
-        <Text style={[styles.counts]}>{person.counts.heart}</Text>
-      </View>
     </View>
   );
 };
