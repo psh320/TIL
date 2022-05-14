@@ -4,6 +4,7 @@ import Person from './src/copy/Person';
 import * as D from './src/data';
 import {Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 const people: D.IPerson[] = D.makeArray(10).map(D.createRandomPerson);
 
 const App = () => {
