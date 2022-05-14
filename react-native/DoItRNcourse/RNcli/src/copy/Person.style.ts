@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 import {Colors} from 'react-native-paper';
 
 export const styles = StyleSheet.create({
-  view: {backgroundColor: Colors.lime100, padding: 5},
+  view: {flexDirection: 'row', backgroundColor: Colors.lime100, padding: 5},
   leftView: {padding: 5},
   avatar: {borderColor: Colors.blue500, borderWidth: 2},
   rightView: {flex: 1, padding: 5, marginright: 10},

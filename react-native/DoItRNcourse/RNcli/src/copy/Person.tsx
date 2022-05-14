@@ -21,7 +21,7 @@ const countIconPressed = (name: string) => () => Alert.alert(`${name} pressed`);
 const Person: FC<PersonProps> = ({person}) => {
   return (
     <View style={[styles.view]}>
-      <View style={[styles.leftview]}>
+      <View style={[styles.leftView]}>
         <Avatar
           imageStyle={[styles.avatar]}
           uri={person.avatar}
@@ -61,9 +61,9 @@ const Person: FC<PersonProps> = ({person}) => {
           <IconText
             viewStyle={[styles.touchableIcon]}
             onPress={countIconPressed('retweet')}
-            name="retweet"
+            name="repeat-variant"
             size={24}
-            color={Colors.blue500}
+            color={Colors.purple500}
             textStyle={[styles.iconText]}
             text={person.counts.retweet}
           />
@@ -72,7 +72,7 @@ const Person: FC<PersonProps> = ({person}) => {
             onPress={countIconPressed('heart')}
             name="heart"
             size={24}
-            color={Colors.blue500}
+            color={Colors.red500}
             textStyle={[styles.iconText]}
             text={person.counts.heart}
           />

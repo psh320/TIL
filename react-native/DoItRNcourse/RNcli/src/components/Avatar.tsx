@@ -21,7 +21,10 @@ export const Avatar: FC<AvatarProps> = ({
     <TouchableView {...TouchableViewProps}>
       <Image
         source={{uri}}
-        style={[imageStyle, {width: size, borderRadius: size / 2}]}
+        style={[
+          imageStyle,
+          {width: size, height: size, borderRadius: size / 2},
+        ]}
       />
     </TouchableView>
   );
