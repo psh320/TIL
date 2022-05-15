@@ -1,34 +1,37 @@
-import React from 'react';
-import {View, StyleSheet, Text, Image} from 'react-native';
+import React, {useCallback} from 'react';
+import type {FC, Dispatch, SetStateAction} from 'react';
+import {View, StyleSheet, Text} from 'react-native';
 import {Colors} from 'react-native-paper';
 import * as D from '../data';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const name = D.randomName();
-const avatarUrl = D.randomAvatarUrl(name);
+export type TopBarProps = {setPeople: Dispatch<SetStateAction<D.IPerson[]>>};
 
-const TopBar = () => {
+const TopBar: FC<TopBarProps> = ({setPeople}) => {
+  const add = useCallback(
+    () => setPeople(prevPeople => [D.createRandomPerson(), ...prevPeople]),
+    [],
+  );
+  const deleteAll = useCallback(() => setPeople(notUsed => []), []);
   return (
-    <View style={[styles.view]}>
-      <Image style={styles.avatar} source={{uri: avatarUrl}} />
-      <View style={[styles.centerView]}>
-        <Text style={[styles.text]}>{name}</Text>
-      </View>
-      <Icon name="menu" size={24} color="white" />
+    <View style={[styles.topBar]}>
+      <Text style={[styles.textButton]} onPress={add}>
+        Add
+      </Text>
+      <Text style={[styles.textButton]} onPress={deleteAll}>
+        Delete all
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  view: {
+  topBar: {
     flexDirection: 'row',
-    alignItems: 'center',
     padding: 5,
-    backgroundColor: Colors.amber500,
+    justifyContent: 'space-between',
+    backgroundColor: Colors.lightBlue700,
   },
-  text: {fontSize: 20, textAlign: 'center'},
-  avatar: {width: 40, height: 40, borderRadius: 20},
-  centerView: {flex: 1},
+  textButton: {color: 'white', fontSize: 20},
 });
 
 export default TopBar;

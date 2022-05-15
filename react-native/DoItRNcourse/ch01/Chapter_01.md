@@ -36,6 +36,10 @@ After that, run this command to apply the changes to shell.
 source .zshrc
 ```
 
+## Install React-Native
+
+npx react-native init App_Name --template react-native-template-typescript
+
 ## Install Java11 JDK
 
 React-Native needs Android SDK build tool and it uses Java version 11 JDK.

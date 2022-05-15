@@ -256,7 +256,7 @@ onChangeText(text: string) => void
 
 example of Text Input
 
-```typescript
+```js
 <TextInput
   placeholder="Enter your name"
   onChangeText={(text: string) => console.log(text)}
