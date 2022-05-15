@@ -219,7 +219,7 @@ In this way we create random person and use in our app.
 
 ### Button
 
-```typescript
+```js
 <View style={styles.container}>
   <Button title="Home" onPress={onPress} />
   <TouchableOpacity onPress={onPress}>
