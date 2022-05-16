@@ -5,6 +5,7 @@ import Timer from './src/screens/Timer';
 import Interval from './src/screens/Interval';
 import Fetch from './src/screens/Fetch';
 import {Colors} from 'react-native-paper';
+import MainNavigator from './src/screens/MainNavigator';
 
 export default function App() {
   const selects = useMemo(
@@ -25,11 +26,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.SafeAreaView}>
-      <View style={styles.topBar}>{buttons}</View>
-      {select === 'lifeCycle' && <LifeCycle />}
-      {select === 'timer' && <Timer />}
-      {select === 'interval' && <Interval />}
-      {select === 'fetch' && <Fetch />}
+      <MainNavigator />
     </SafeAreaView>
   );
 }

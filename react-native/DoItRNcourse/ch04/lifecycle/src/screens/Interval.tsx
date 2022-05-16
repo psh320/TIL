@@ -1,27 +1,28 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Colors} from 'react-native-paper';
 import {Avatar} from '../components';
 import * as D from '../data';
+import {useInterval, useToggle} from '../hooks';
 
 type IdAndAvatar = Pick<D.IPerson, 'id' | 'avatar'>;
 
 const Interval = () => {
   const [avatars, setAvatars] = useState<IdAndAvatar[]>([]);
-  const [start, setStart] = useState(true);
-  const toggleStart = useCallback(() => setStart(start => !start), []);
+  const [start, toggleStart] = useToggle(true);
   const clearAvatars = useCallback(() => setAvatars(notUsed => []), []);
-  useEffect(() => {
-    const id = setInterval(() => {
+  useInterval(
+    () => {
       if (start) {
         setAvatars(avatars => [
           {id: D.randomId(), avatar: D.randomAvatarUrl()},
           ...avatars,
         ]);
       }
-    }, 1000);
-    return () => clearInterval(id);
-  }, [start]);
+    },
+    1000,
+    [start],
+  );
 
   const children = avatars.map(({id, avatar}) => (
     <Avatar

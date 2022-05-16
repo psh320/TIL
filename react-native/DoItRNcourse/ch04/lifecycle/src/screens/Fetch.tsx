@@ -10,6 +10,7 @@ const Fetch = () => {
 
   useEffect(() => {
     D.getCountries().then(setCountries).catch(setError);
+    //D.getCountries().then(countries => setCountries(countries)).catch((error: Error) => setError(e))
   }, []);
 
   return (
