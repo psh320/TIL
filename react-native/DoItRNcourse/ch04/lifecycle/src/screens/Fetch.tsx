@@ -3,15 +3,17 @@ import {View, StyleSheet, Text, FlatList} from 'react-native';
 import {Colors} from 'react-native-paper';
 import Country from './Country';
 import * as D from '../data';
+import {useAsync} from '../hooks';
 
 const Fetch = () => {
   const [countries, setCountries] = useState<D.ICountry[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    D.getCountries().then(setCountries).catch(setError);
-    //D.getCountries().then(countries => setCountries(countries)).catch((error: Error) => setError(e))
-  }, []);
+  const [error, resetError] = useAsync(async () => {
+    setCountries([]);
+    resetError();
+    //await Promise.reject(new Error('some error occurs'))
+    const countries = await D.getCountries();
+    setCountries(countries);
+  });
 
   return (
     <View style={styles.view}>
