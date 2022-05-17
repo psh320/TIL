@@ -4,6 +4,7 @@ import {AppearanceProvider, useColorScheme} from 'react-native-appearance';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {DefaultTheme, DarkTheme} from 'react-native-paper';
 import MainNavigator from './src/screens/MainNavigator';
+import {ToggleThemeProvider} from './src/contexts';
 
 export default function App() {
   const scheme = useColorScheme();
@@ -16,10 +17,12 @@ export default function App() {
   );
   return (
     <AppearanceProvider>
-      <PaperProvider theme={DarkTheme}>
-        <SafeAreaView style={styles.SafeAreaView}>
-          <MainNavigator />
-        </SafeAreaView>
+      <PaperProvider theme={theme}>
+        <ToggleThemeProvider toggleTheme={toggleTheme}>
+          <SafeAreaView style={styles.SafeAreaView}>
+            <MainNavigator />
+          </SafeAreaView>
+        </ToggleThemeProvider>
       </PaperProvider>
     </AppearanceProvider>
   );
