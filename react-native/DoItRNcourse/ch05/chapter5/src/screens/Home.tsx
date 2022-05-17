@@ -1,40 +1,45 @@
-import React from 'react';
-import {View, StyleSheet, Text, Switch} from 'react-native';
+import React, {useState, useCallback} from 'react';
+import {Text, View, StyleSheet, Switch, FlatList} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {useToggleTheme} from '../contexts';
+import * as D from '../data';
+import Person from './Person';
 
 const Home = () => {
+  const [people, setPeople] = useState<D.IPerson[]>([D.createRandomPerson()]);
   const theme = useTheme();
-  console.log(theme);
-  const {dark, fonts, colors} = theme;
   const toggleTheme = useToggleTheme();
+  const add = useCallback(() => {
+    setPeople(people => [...people, D.createRandomPerson()]);
+  }, []);
+  const removeAll = useCallback(() => {
+    setPeople(notUsed => []);
+  }, []);
   return (
-    <View style={[styles.view, {backgroundColor: colors.background}]}>
-      <View style={[styles.bar, {backgroundColor: colors.primary}]}>
-        <Text style={(styles.text, {color: colors.text}, fonts.medium)}>
-          TopBar
+    <View style={[styles.view, {backgroundColor: theme.colors.surface}]}>
+      <View style={[styles.topBar, {backgroundColor: theme.colors.accent}]}>
+        <Text onPress={add} style={styles.text}>
+          add
         </Text>
-      </View>
-      <Switch value={dark} onValueChange={toggleTheme} />
-      <View style={styles.content}>
-        <Text style={[styles.text, {color: colors.text}, fonts.regular]}>
-          Welcome to Context World!
+        <Text onPress={removeAll} style={styles.text}>
+          remove all
         </Text>
+        <View style={{flex: 1}} />
+        <Switch value={theme.dark} onValueChange={toggleTheme} />
       </View>
-      <View style={[styles.bar, {backgroundColor: colors.accent}]}>
-        <Text style={(styles.text, {color: colors.text}, fonts.light)}>
-          BottomBar
-        </Text>
-      </View>
+      <FlatList
+        data={people}
+        renderItem={({item}) => <Person person={item} />}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   view: {flex: 1},
-  bar: {height: 50, flexDirection: 'row', padding: 5, alignItems: 'center'},
-  content: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-  text: {fontSize: 20, textAlign: 'center'},
+  topBar: {flexDirection: 'row', padding: 5},
+  text: {marginRight: 10, fontSize: 20},
 });
 
 export default Home;

@@ -1,5 +1,4 @@
 import React, {useState, useCallback} from 'react';
-import type {FC} from 'react';
 import {Text, View, StyleSheet, Switch, FlatList} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {useToggleTheme} from '../contexts';
