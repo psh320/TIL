@@ -29,6 +29,7 @@ const Input = () => {
         <View style={{flex: 1}} />
         <Switch value={dark} onValueChange={toggleTheme} />
       </View>
+      <View style={{flex: 1}}></View>
       <View style={[styles.textView]}>
         <Text style={[styles.text, {color: colors.text}]}>email</Text>
         <TextInput
