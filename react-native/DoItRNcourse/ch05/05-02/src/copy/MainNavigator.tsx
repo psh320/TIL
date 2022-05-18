@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
 import {BottomNavigation} from 'react-native-paper';
-import Themed from './Themed';
-import Imperative from './Imperative';
 
 export default function MainNavigator() {
   const [index, setIndex] = useState<number>(0);
   const [routes] = useState([
-    {key: 'home', title: 'Home', icon: 'home'},
-    {key: 'input', title: 'Input', icon: 'apple-keyboard-caps'},
+    {key: 'life', title: 'LifeCycle', icon: 'page-layout-header-footer'},
+    {key: 'timer', title: 'Timer', icon: 'clock-time-four'},
+    {key: 'interval', title: 'Interval', icon: 'timeline'},
+    {key: 'fetch', title: 'Fetch', icon: 'history'},
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    home: Home,
-    input: Input,
+    life: LifeCycle,
+    timer: Timer,
+    interval: Interval,
+    fetch: Fetch,
   });
 
   return (
