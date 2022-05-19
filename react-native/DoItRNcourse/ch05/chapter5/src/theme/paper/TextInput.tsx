@@ -10,7 +10,6 @@ const _TextInput: ForwardRefRenderFunction<RNTextInput, TextInputProps> = (
   ref,
 ) => {
   const {colors} = useTheme();
-
   return (
     <RNTextInput
       ref={ref}
