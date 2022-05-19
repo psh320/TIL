@@ -6,13 +6,13 @@ import Imperative from './Imperative';
 export default function MainNavigator() {
   const [index, setIndex] = useState<number>(0);
   const [routes] = useState([
-    {key: 'home', title: 'Home', icon: 'home'},
-    {key: 'input', title: 'Input', icon: 'apple-keyboard-caps'},
+    {key: 'themed', title: 'Themed', icon: 'home'},
+    {key: 'imperative', title: 'Imperative', icon: 'keyboard-settings'},
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    home: Home,
-    input: Input,
+    themed: Themed,
+    imperative: Imperative,
   });
 
   return (
