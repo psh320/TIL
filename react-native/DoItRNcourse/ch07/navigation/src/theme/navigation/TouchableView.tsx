@@ -1,10 +1,6 @@
 import React from 'react';
 import type {FC} from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  TouchableOpacityComponent,
-} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import type {StyleProp, ViewStyle} from 'react-native';
 import {View} from './View';
 import type {ViewProps} from './View';
