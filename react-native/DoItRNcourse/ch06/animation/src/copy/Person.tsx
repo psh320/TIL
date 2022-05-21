@@ -28,6 +28,7 @@ const Person: FC<PersonProps> = ({person, deletePressed}) => {
           size={50}
           onPress={avatarPressed}
         />
+        <Text style={[styles.text]}>Press Me</Text>
       </View>
       <View style={[styles.rightView]}>
         <Text style={[styles.name]}>{person.name}</Text>
