@@ -1,5 +1,5 @@
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useMemo, useState} from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import React, {useCallback, useState} from 'react';
 import {AppearanceProvider, useColorScheme} from 'react-native-appearance';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {DefaultTheme, DarkTheme} from 'react-native-paper';
