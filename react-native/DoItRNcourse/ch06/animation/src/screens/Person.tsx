@@ -1,26 +1,23 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState, useRef, useEffect, useMemo} from 'react';
 import type {FC} from 'react';
-import {Image, Text, View, Alert} from 'react-native';
+import {Image, Text, View, Alert, Animated, Easing} from 'react-native';
 import {Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment-with-locales-es6';
+import {useToggle} from '../hooks';
 import * as D from '../data';
-import {Avatar, IconText} from '../components';
+import {Avatar} from '../components';
 import {styles} from './Person.style';
 
 moment.locale('ko');
 
 export type PersonProps = {
   person: D.IPerson;
+  deletePressed: () => void;
 };
 
-const Person: FC<PersonProps> = ({person}) => {
+const Person: FC<PersonProps> = ({person, deletePressed}) => {
   const avatarPressed = useCallback(() => Alert.alert('avatar pressed.'), []);
-  const deletePressed = useCallback(() => Alert.alert('delete pressed.'), []);
-  const countIconPressed = useCallback(
-    (name: string) => () => Alert.alert(`${name} pressed`),
-    [],
-  );
 
   return (
     <View style={[styles.view]}>
@@ -31,6 +28,7 @@ const Person: FC<PersonProps> = ({person}) => {
           size={50}
           onPress={avatarPressed}
         />
+        <Text style={[styles.text]}>Press Me</Text>
       </View>
       <View style={[styles.rightView]}>
         <Text style={[styles.name]}>{person.name}</Text>
@@ -52,33 +50,9 @@ const Person: FC<PersonProps> = ({person}) => {
         </Text>
         <Image style={[styles.image]} source={{uri: person.image}} />
         <View style={[styles.countsView]}>
-          <IconText
-            viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
-            name="comment"
-            size={24}
-            color={Colors.blue500}
-            textStyle={[styles.iconText]}
-            text={person.counts.comment}
-          />
-          <IconText
-            viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('retweet')}
-            name="repeat-variant"
-            size={24}
-            color={Colors.purple500}
-            textStyle={[styles.iconText]}
-            text={person.counts.retweet}
-          />
-          <IconText
-            viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('heart')}
-            name="heart"
-            size={24}
-            color={Colors.red500}
-            textStyle={[styles.iconText]}
-            text={person.counts.heart}
-          />
+          <Icon name="comment" size={24} color={Colors.purple500} />
+          <Icon name="repeat-variant" size={24} color={Colors.purple500} />
+          <Icon name="heart" size={24} color={Colors.purple500} />
         </View>
       </View>
     </View>
