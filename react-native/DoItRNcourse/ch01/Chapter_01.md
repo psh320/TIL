@@ -100,3 +100,11 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 ```
 
 Make sure You have installed Same version for SDK and AVD and have installed SDK tools appropriately.
+
+# Project Initialize for DoItRNcourse
+
+```
+npx react-native init App_name --template react-native-template-typescript
+npm i react-native-vector-icons react-native-paper @faker-js/faker moment moment-with-locales-es6 react-native-appearance react-native-keyboard-aware-scroll-view
+npm i -D @types/react-native-vector-icons @types/faker
+```
