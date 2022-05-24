@@ -15,6 +15,7 @@ import {
 import {Avatar} from '../components';
 import {styles} from './Person.style';
 import {Text as ThemeText, View as ThemeView} from '../theme/paper';
+import {interpolate} from '../utils';
 
 moment.locale('ko');
 
@@ -23,27 +24,7 @@ export type PersonProps = {
   deletePressed: () => void;
 };
 
-// const PersonBasics: FC<PersonProps> = ({person}) => {
-//   const animValue = new Animated.Value(0);
-// };
-
-//we take useRef hook to cache the Animated.Value class Instance.
-// const PersonBasics: FC<PersonProps> = ({person}) => {
-//   const animValue = useRef(new Animated.Value(0)).current;
-//   const rightViewAnimStyle = {opacity: animValue};
-//   const onPress = () => {
-//     Animated.timing(animValue, {
-//       toValue: 1,
-//       useNativeDriver: true,
-//       duration: 1000,
-//     }).start();
-//   };
-//   <Avatar uri={person.avatar} size={50} onPress={onPress} />
-//   <Animated.View
-//     style={[styles.rightView, rightViewAnimStyle]} />;
-// };
-
-const PersonToggle: FC<PersonProps> = ({person, deletePressed}) => {
+const PersonInterpolate: FC<PersonProps> = ({person, deletePressed}) => {
   const animValue = useAnimatedValue(0);
   const realAnimValue = useMonitorAnimatedValue(animValue);
   const [started, toggleStarted] = useToggle(false);
@@ -51,13 +32,22 @@ const PersonToggle: FC<PersonProps> = ({person, deletePressed}) => {
   const avatarPressed = useCallback(
     () =>
       Animated.timing(animValue, {
-        useNativeDriver: true,
+        useNativeDriver: false,
         toValue: started ? 0 : 1,
         duration: 1000,
         easing: Easing.bounce,
       }).start(toggleStarted),
     [started],
   );
+
+  const textAnimStyle = useStyle({
+    fontSize: interpolate(animValue, [10, 30]),
+    color: interpolate(
+      animValue,
+      [Colors.lightBlue900, Colors.lime500, Colors.blue900],
+      [0, 0.7, 1],
+    ),
+  });
 
   const rightViewAnimStyle = useStyle({opacity: animValue});
 
@@ -80,7 +70,9 @@ const PersonToggle: FC<PersonProps> = ({person, deletePressed}) => {
           <Text style={[styles.text]}>Press Me</Text>
         </View>
         <Animated.View style={[styles.rightView, rightViewAnimStyle]}>
-          <Text style={[styles.name]}>{person.name}</Text>
+          <Animated.Text style={[styles.name, textAnimStyle]}>
+            {person.name}
+          </Animated.Text>
           <Text style={[styles.email]}>{person.email}</Text>
           <View style={[styles.dateView]}>
             <Text>{moment(person.createdDate).startOf('day').fromNow()}</Text>
@@ -109,4 +101,4 @@ const PersonToggle: FC<PersonProps> = ({person, deletePressed}) => {
   );
 };
 
-export default PersonToggle;
+export default PersonInterpolate;
