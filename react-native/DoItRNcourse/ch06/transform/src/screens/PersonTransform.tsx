@@ -45,7 +45,7 @@ const PersonTransform: FC<PersonProps> = ({
         translateY: interpolate(animValue, [0, 200]),
       },
       {
-        rotate: interpolate(animValue, ['0deg', '180deg']),
+        rotate: interpolate(animValue, ['0deg', '45deg']),
       },
       {
         scale: interpolate(animValue, [1, 2]),
