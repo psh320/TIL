@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, Switch, FlatList} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {useToggleTheme} from '../contexts';
 import * as D from '../data';
-import Person from './Person';
+import Person from './PersonTransform';
 
 const People = () => {
   const [people, setPeople] = useState<D.IPerson[]>([D.createRandomPerson()]);
