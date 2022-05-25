@@ -1,7 +1,7 @@
 import React, {useRef, useMemo, useCallback} from 'react';
 import type {FC} from 'react';
 import {StyleSheet, FlatList, Image, View, Animated} from 'react-native';
-import type {NativeSyntheticEvent} from 'react-native';
+import type {NativeSyntheticEvent, NativeScrollEvent} from 'react-native';
 import {Colors} from 'react-native-paper';
 import {TouchableView} from './TouchableView';
 
@@ -18,7 +18,8 @@ export type ImageSliderProps = {
 };
 
 const circleWidth = 10,
-  circleMarginRight = 5;
+  circleMarginRight = 5,
+  thumbnailSize = 50;
 
 export const ImageSlider: FC<ImageSliderProps> = ({
   imageUrls,
@@ -26,9 +27,32 @@ export const ImageSlider: FC<ImageSliderProps> = ({
   showThumbnails,
 }) => {
   const flatListRef = useRef<FlatList | null>(null);
-  const selectImage = useCallback((index: number) => {
-    flatListRef.current?.scrollToIndex({index});
-  }, []);
+
+  const selectedIndexAnimValue = useAnimatedValue(0);
+  const selectedIndex = useMonitorAnimatedValue(selectedIndexAnimValue);
+
+  const circleWidthAnimValue = useAnimatedValue(circleWidth);
+  const circleMarginRightAnimValue = useAnimatedValue(circleMarginRight);
+
+  const onScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      if (imageWidth === 0) {
+        return;
+      }
+      const {contentOffset} = event.nativeEvent;
+      const index = Math.round(contentOffset.x / imageWidth);
+      selectedIndexAnimValue.setValue(index);
+    },
+    [imageWidth],
+  );
+
+  const selectImage = useCallback(
+    (index: number) => () => {
+      flatListRef.current?.scrollToIndex({index});
+    },
+    [],
+  );
+
   const circles = useMemo(
     () =>
       imageUrls.map((uri, index) => <View key={index} style={styles.circle} />),
@@ -39,17 +63,34 @@ export const ImageSlider: FC<ImageSliderProps> = ({
       imageUrls.map((uri, index) => (
         <TouchableView
           key={index}
-          onPress={() => selectImage(index)}
-          style={[styles.thumbnail]}>
-          <Image source={{uri}} style={{width: 30, height: 30}} />
+          onPress={selectImage(index)}
+          style={[
+            styles.thumbnail,
+            {
+              borderColor:
+                index === selectedIndex ? Colors.lightBlue900 : 'transparent',
+            },
+          ]}>
+          <Image
+            source={{uri}}
+            style={{width: thumbnailSize, height: thumbnailSize}}
+          />
         </TouchableView>
       )),
     [],
   );
 
+  const translateX = useTransformStyle({
+    translateX: Animated.multiply(
+      selectedIndexAnimValue,
+      Animated.add(circleWidthAnimValue, circleMarginRightAnimValue),
+    ),
+  });
+
   return (
     <>
       <FlatList
+        onScroll={onScroll}
         ref={flatListRef}
         horizontal={true}
         pagingEnabled={true}
@@ -69,7 +110,9 @@ export const ImageSlider: FC<ImageSliderProps> = ({
       <View style={[styles.iconBar, {justifyContent: 'center'}]}>
         <View style={{flexDirection: 'row'}}>
           {circles}
-          <Animated.View style={[styles.circle, styles.selectedCircle]} />
+          <Animated.View
+            style={[styles.circle, styles.selectedCircle, translateX]}
+          />
         </View>
       </View>
       {showThumbnails && (
