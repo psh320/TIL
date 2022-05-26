@@ -18,14 +18,14 @@ export type PersonProps = {
 };
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-const Person: FC<PersonProps> = ({person, deletePressed}) => {
+const PersonParallel: FC<PersonProps> = ({person, deletePressed}) => {
   const [started, toggleStarted] = useToggle();
   const animValues = useAnimatedValues(3);
 
   const animations = useMemo(
     () =>
       animValues.map(animValue =>
-        Animated.timing(animValue, {
+        Animated.spring(animValue, {
           useNativeDriver: true,
           toValue: !started ? 1 : 0,
         }),
@@ -105,4 +105,4 @@ const Person: FC<PersonProps> = ({person, deletePressed}) => {
   );
 };
 
-export default Person;
+export default PersonParallel;
