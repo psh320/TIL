@@ -107,4 +107,10 @@ Make sure You have installed Same version for SDK and AVD and have installed SDK
 npx react-native init App_name --template react-native-template-typescript
 npm i react-native-vector-icons react-native-paper @faker-js/faker moment moment-with-locales-es6 react-native-appearance react-native-keyboard-aware-scroll-view
 npm i -D @types/react-native-vector-icons @types/faker
+
+//네비게이션 관련
+npm i react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view @react-navigation/native
+
+npm i @react-navigation/stack @react-navigation/bottom-tabs @react-navigation/drawer
+
 ```
