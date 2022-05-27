@@ -1,4 +1,4 @@
-import faker from '@faker-js/faker';
+import {faker} from '@faker-js/faker';
 import * as U from './util';
 
 export const randomId = (): string => faker.datatype.uuid();
