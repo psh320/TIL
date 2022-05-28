@@ -8,7 +8,7 @@ import Person from './Person';
 const Home = () => {
   const [scrollEnabled] = useScrollEnabled();
   const [people, setPeople] = useState<D.IPerson[]>([]);
-
+  console.log(people);
   const addPerson = useCallback(() => {
     setPeople(people => [...people, D.createRandomPerson()]);
   }, []);
@@ -38,7 +38,12 @@ const Home = () => {
             scrollEnabled={scrollEnabled}
             data={people}
             renderItem={({item}) => (
-              <Person person={item} deletePressed={deletePerson(item.id)} />
+              <Person
+                person={item}
+                deletePressed={() => {
+                  deletePerson(item.id);
+                }}
+              />
             )}
             keyExtractor={item => item.id}
           />
