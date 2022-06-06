@@ -1,14 +1,14 @@
-import React, {useCallback, useMemo} from 'react';
-import type {FC} from 'react';
-import {Image, Text, View, Animated, Easing} from 'react-native';
-import {Colors} from 'react-native-paper';
+import React, { useCallback, useMemo } from 'react';
+import type { FC } from 'react';
+import { Image, Text, View, Animated, Easing } from 'react-native';
+import { Colors } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment-with-locales-es6';
-import {useToggle, useTransformStyle, useAnimatedValues} from '../hooks';
+import { useToggle, useTransformStyle, useAnimatedValues } from '../hooks';
 import * as D from '../data';
-import {interpolate} from '../utils';
-import {Avatar} from '../components';
-import {styles} from './Person.style';
+import { interpolate } from '../utils';
+import { Avatar } from '../components';
+import { styles } from './Person.style';
 
 moment.locale('ko');
 
@@ -18,13 +18,13 @@ export type PersonProps = {
 };
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-const PersonParallel: FC<PersonProps> = ({person, deletePressed}) => {
+const PersonParallel: FC<PersonProps> = ({ person, deletePressed }) => {
   const [started, toggleStarted] = useToggle();
   const animValues = useAnimatedValues(3);
 
   const animations = useMemo(
     () =>
-      animValues.map(animValue =>
+      animValues.map((animValue) =>
         Animated.spring(animValue, {
           useNativeDriver: true,
           toValue: !started ? 1 : 0,
@@ -63,9 +63,7 @@ const PersonParallel: FC<PersonProps> = ({person, deletePressed}) => {
         <Text style={[styles.name]}>{person.name}</Text>
         <Text style={[styles.email]}>{person.email}</Text>
         <View style={[styles.dateView]}>
-          <Text style={[styles.text]}>
-            {moment(person.createdDate).startOf('day').fromNow()}
-          </Text>
+          <Text style={[styles.text]}>{moment(person.createdDate).startOf('day').fromNow()}</Text>
           <Icon
             name="trash-can-outline"
             size={26}
@@ -73,32 +71,19 @@ const PersonParallel: FC<PersonProps> = ({person, deletePressed}) => {
             onPress={deletePressed}
           />
         </View>
-        <Text
-          numberOfLines={3}
-          ellipsizeMode="tail"
-          style={[styles.text, styles.comments]}>
+        <Text numberOfLines={3} ellipsizeMode="tail" style={[styles.text, styles.comments]}>
           {person.comments}
         </Text>
-        <Image style={[styles.image]} source={{uri: person.image}} />
+        <Image style={[styles.image]} source={{ uri: person.image }} />
         <View style={[styles.countsView]}>
-          <AnimatedIcon
-            style={[leftIconStyle]}
-            name="comment"
-            size={24}
-            color={Colors.purple500}
-          />
+          <AnimatedIcon style={[leftIconStyle]} name="comment" size={24} color={Colors.purple500} />
           <AnimatedIcon
             style={[centerIconStyle]}
             name="repeat-variant"
             size={24}
             color={Colors.purple500}
           />
-          <AnimatedIcon
-            style={[rightIconStyle]}
-            name="heart"
-            size={24}
-            color={Colors.purple500}
-          />
+          <AnimatedIcon style={[rightIconStyle]} name="heart" size={24} color={Colors.purple500} />
         </View>
       </View>
     </View>
