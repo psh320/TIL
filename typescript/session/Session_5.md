@@ -189,3 +189,193 @@ class Department {
 
 const accounting = new AccountingDepartment();
 ```
+
+### Static Methods & Properties
+
+static Methods 는 클래스를 만들지 않고 클래스 안에있는 메소드를 쓸수 있게 만들어 주는것이다.
+
+클래스 안에 메서드나 프로퍼티를 클래스 밖에서도 사용하고 싶다면 static을 붙여주자. static은 클래스 인스턴스안에서 this로 참조 하지못한다.
+
+```typescript
+class Department {
+  //static property
+  static fiscalYear = 2020;
+
+  private employees: string[] = [];
+  constructor(private id: string, public name: string) {}
+
+  //static method
+  static createEmployee(name: string) {
+    return { name: name };
+  }
+}
+
+const employee1 = Department.createEmployee(max);
+console.log(employee1, Department.fiscalYear);
+```
+
+### Abstract Classes
+
+클래스가 제공하는 메서드가 있지만 제너럴하게 쓰는게 아니고 extend된 다른 클래스에서 좀더 명확하게 정의해서 쓰고싶다면 메서드와 클래스를 abstract으로 만들어라.
+
+추상화된 메서드가 있지만 자식 클래스가 그 메서드를 사용하지 않는다면 오류가 날것이다.
+
+```typescript
+//Put abstract in front of class
+abstract class Department {
+  static fiscalYear = 2020;
+
+  private employees: string[] = [];
+  constructor(private id: string, public name: string) {}
+  static createEmployee(name: string) {
+    return { name: name };
+  }
+  // Need put abstract and give return type. No need to define a function.
+  abstract describe(this: Department): void;
+}
+
+class ITDepartment extends Department {
+  admins: string[];
+  constructor(id: string, admins: string[]) {
+    super(id, "IT");
+    //'this' should appear after super function.
+    this.admins = admins;
+  }
+
+  describe() {
+    console.log("IT department");
+  }
+}
+```
+
+when a class become abstract, it cant be intantiated from now on. It is just there to be inherited.
+
+### Singletons & Private Constructors
+
+Singleton Pattern is about ensuring that you always only have exactly one instance of a certain class.
+
+```typescript
+class AccountingDepartment extends Department {
+  private lastReport: string;
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+    throw new Error("No report Found.");
+  }
+
+  //make it private so we cannot create multiple classes outside this code.
+  private constructor(id: string, private reports: string[]) {
+    super(id, "Accounting");
+  }
+
+  //access and create one instance by static method
+  static getInstance() {
+    if (AccountingDepartment.instance) {
+      return this.instance;
+    }
+    this.instance = new AccountingDepartment("d2", []);
+    return this.instance;
+  }
+}
+//const accounting = new AccountingDepartment("d2", []);
+const accounting = AccountingDepartment.getInstance();
+```
+
+Accounting Department은 이제 무조건 하나의 인스턴스만 갖게 된다.
+
+### Interface
+
+인터페이스로 타입을 만들수있다
+
+```typescript
+interface Person {
+  name: string;
+  age: number;
+
+  greet(phrase: string): void;
+}
+let user1: Person;
+
+user1 = {
+  name: "Max",
+  age: 25,
+  greet(phrase: string) {
+    console.log(phrase + " " + this.name);
+  },
+};
+```
+
+### Interface implment on Class
+
+인터페이스를 클래스에 적용할 수 있다.
+
+```typescript
+interface Greetable {
+  name: string;
+  greet(phrase: string): void;
+}
+class Person implements Greetable {
+  name: string;
+
+  constructor(n: string) {
+    this.name = n;
+  }
+  greet(phrase: string) {
+    console.log(phrase + " " + this.name);
+  }
+}
+```
+
+### Interface Readonly
+
+interface에 readonly 추가하면 초기 할당이후 클래스에서 프로퍼티를 변경하지 못한다.
+
+```typescript
+interface Greetable {
+  readonly name: string;
+  greet(phrase: string): void;
+}
+```
+
+### Interface Extend
+
+인터페이스는 type과 다르게 확장이 가능하다, 마치 부모 자식 형태처럼 부모에서 정의한건 자식이 모두 가지고있는 방식이다.
+
+```typescript
+interface Named {
+  readonly name: string;
+}
+
+interface Greetable extends Named {
+  greet(phrase: string): void;
+}
+```
+
+### Interface as Function Type
+
+```typescript
+//type
+type AddFn = (a: number, b: number) => number;
+let add: addFn;
+add = (n1: number, n2: number) => {
+  return n1 + n2;
+};
+
+//interface
+interface AddFn {
+  (a: number, b: number): number;
+}
+```
+
+### Interface Optional Parameters & Properties
+
+optional property 를 주고 싶을땐 인터페이스에 타입을 지정할때 ? 연산자를 넣으면 된다.
+
+```typescript
+interface Named {
+  readonly name: string;
+  outputName?: string;
+}
+```
