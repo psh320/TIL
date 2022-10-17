@@ -95,13 +95,36 @@ const errorBag: ErrorContainer = {
 
 ### Function Overloads
 
+return type may be different in one function. and the return type may be different depending on the type of input parameters. Here we can use function overloads to
+
 ```typescript
 function add(a: number, b: number): number;
 function add(a: string, b: string): string;
+function add(a: string, b: number): string;
+function add(a: number, b: string): string;
 function add(a: Combinable, b: Combinable) {
   if (typeof a === "string" || typeof b === "string") {
     return a.toString() + b.toString();
   }
   return a + b;
 }
+```
+
+### Optional Chaining & nullish expression
+
+When we get data from backend database and access the object where we are not sure the property is defined.
+
+```typescript
+const fetchedUserData = {
+  id: "u1",
+  name: "Max",
+  // job: { title: "CEO", description: "My own company" },
+};
+//if job is not defined in object.
+console.log(fetchedUserData.job && fetchedUserData.job.title);
+console.log(fetchedUserData?.job?.title);
+
+const userInput = null;
+// ?? check null or undefined.
+const storedData = userInput ?? "DEFAULT";
 ```
