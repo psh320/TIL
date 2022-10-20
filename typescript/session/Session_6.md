@@ -1,11 +1,5 @@
 # Advanced Type
 
-intersection types
-type guards
-discriminated unions
-type casting
-function overloads
-
 ### Intersection Types
 
 we can combine different object types and form new type that has all the properties of all types intersected.
