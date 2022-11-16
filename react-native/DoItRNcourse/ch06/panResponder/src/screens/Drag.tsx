@@ -4,7 +4,7 @@ import {useTheme} from 'react-native-paper';
 import {useToggleTheme} from '../contexts';
 import {ScrollEnabledProvider, useScrollEnabled} from '../contexts';
 import * as D from '../data';
-import Person from './Person';
+import Person from './PersonDrag';
 
 const People = () => {
   const [scrollEnabled] = useScrollEnabled();
@@ -38,7 +38,7 @@ const People = () => {
           <Switch value={theme.dark} onValueChange={toggleTheme} />
         </View>
         <FlatList
-          scrollEnabled={scrollEnabled}
+          scrollEnabled={false}
           data={people}
           renderItem={({item}) => (
             <Person person={item} deletePressed={() => deletePerson(item.id)} />

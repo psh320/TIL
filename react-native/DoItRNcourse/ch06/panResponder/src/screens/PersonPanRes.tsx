@@ -24,14 +24,17 @@ const PersonPanRes: FC<PersonProps> = ({person, onDelete}) => {
   const [scrollEnabled, setScrollEnabled] = useScrollEnabled();
 
   const panResponder = PanResponder.create({
+    //panResponderGrant와 panResponderRelease 콜백 함수 호출
     onStartShouldSetPanResponder() {
       return true;
     },
     onPanResponderGrant(e: Event, s: State) {
+      //ios 에서 터치가 발생하면 부모 flatlist 스크롤을 일시 중지
       ios && setScrollEnabled(false);
       setGestureState(s);
     },
     onPanResponderRelease(e: Event, s: State) {
+      //ios 에서 터치가 발생하면 부모 flatlist 스크롤을 일시 중지
       setGestureState(s);
       ios && setScrollEnabled(true);
     },

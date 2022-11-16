@@ -4,7 +4,7 @@ import {useTheme} from 'react-native-paper';
 import {useToggleTheme} from '../contexts';
 import {ScrollEnabledProvider, useScrollEnabled} from '../contexts';
 import * as D from '../data';
-import Person from './PersonPanRes';
+import PersonPanRes from './PersonPanRes';
 
 const People = () => {
   const [scrollEnabled] = useScrollEnabled();
@@ -41,7 +41,10 @@ const People = () => {
           scrollEnabled={scrollEnabled}
           data={people}
           renderItem={({item}) => (
-            <Person person={item} deletePressed={() => deletePerson(item.id)} />
+            <PersonPanRes
+              person={item}
+              deletePressed={() => deletePerson(item.id)}
+            />
           )}
           keyExtractor={item => item.id}
         />
